@@ -65,7 +65,7 @@ add_definitions(${ALIGN_OPTIONS})
 # fair as these use shared libraries too (libstdc++ and libc).
 set(BUILD_SHARED_LIBS ON CACHE BOOL
     "Build shared library instead of static one")
-set(FMT_TEST TRUE CACHE BOOL "Enable fmt tests")
+set(FMT_TEST FALSE CACHE BOOL "Enable fmt tests")
 add_subdirectory(fmt)
 
 find_package(Boost)
