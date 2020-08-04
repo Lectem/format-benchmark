@@ -154,7 +154,9 @@ add_custom_target(variadic-test
 enable_testing()
 set(BENCHMARK_ENABLE_TESTING OFF CACHE BOOL "Disable benchmark tests.")
 add_subdirectory(benchmark)
-add_subdirectory(digits10)
+if(BENCHMARK_ENABLE_TESTING)
+  add_subdirectory(digits10)
+endif()
 add_executable(vararg-benchmark vararg-benchmark.cc)
 target_link_libraries(vararg-benchmark benchmark fmt)
 
