@@ -4,7 +4,7 @@ projectSrcFolder=fmt
 
 # With personal access token
 # Set userAuth to `username:token`
-if [ $userAuth != "" ]; then
+if [ "$userAuth" != "" ]; then
     userAuth="-u $userAuth"
 fi
 
