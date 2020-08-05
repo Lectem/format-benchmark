@@ -5,6 +5,7 @@ projectSrcFolder=fmt
 # With personal access token
 # Set userAuth to `username:token`
 if [ "$userAuth" != "" ]; then
+    echo "using authent for API requests"
     userAuth="-u $userAuth"
 fi
 
@@ -62,7 +63,9 @@ build_and_bench () {
 checkout_build_and_bench()
 {
     pushd $projectSrcFolder
-    git checkout $1
+    # Checkout, then on failure try to fetch the commit and try again
+    # This happens if the local repository does not have the latest versions of PR or if the PR was closed
+    git checkout $1 || (git fetch --depth=1 origin $1 && git checkout $1)
     popd
     build_and_bench $1 $2
 }
