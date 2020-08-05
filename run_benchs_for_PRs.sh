@@ -1,6 +1,7 @@
 #!/bin/bash
 
 projectSrcFolder=fmt
+repository='fmtlib/fmt'
 
 # With personal access token
 # Set userAuth to `username:token`
@@ -76,7 +77,7 @@ benchPR()
 
     prNumber=$1
 
-    prInfo=$(curl $userAuth -s -L "https://api.github.com/repos/fmtlib/fmt/pulls/$1")
+    prInfo=$(curl $userAuth -s -L "https://api.github.com/repos/$repository/pulls/$1")
     prStatus=$(jq '.state' <<< $prInfo)
 
     if [ $prStatus == "null" ]; then
@@ -119,7 +120,7 @@ getPRNumberList()
     prNumbersList=""
     for page in $(seq 1 20) ; do
         echo "downloading page $page"
-        results=$(curl $userAuth -s -L "https://api.github.com/repositories/7056202/pulls?state=all&page=$page")
+        results=$(curl $userAuth -s -L "https://api.github.com/repos/$repository/pulls?state=all&page=$page")
         echo "parsing page $page"
         prNumbersList="$prNumbersList $(jq -r '.[].number' <<< $results)" || echo "results\n $results"
     done
