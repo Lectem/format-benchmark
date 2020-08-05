@@ -34,7 +34,7 @@ build_and_bench () {
         mkdir $results_prefix -p
         touch $results_prefix/.dirty
 
-        cmake -B build -GNinja -DCMAKE_BUILD_TYPE=Release || touch $results_prefix/.doesnotbuild
+        cmake -B build -GNinja -DCMAKE_BUILD_TYPE=Release -DFILE_BENCH=OFF || touch $results_prefix/.doesnotbuild
         cmake --build build --config Release || touch $results_prefix/.doesnotbuild
         
         if [ ! -e $results_prefix/.doesnotbuild ]; then
@@ -42,7 +42,7 @@ build_and_bench () {
             for i in $(seq 1 $num_iterations)
             do
                 pushd build
-                for benchname in "concat-benchmark" "find-pow10-benchmark" "locale-benchmark" "vararg-benchmark" "file-benchmark" "int-benchmark" "parse-benchmark"; do
+                for benchname in "concat-benchmark" "find-pow10-benchmark" "locale-benchmark" "vararg-benchmark" "int-benchmark" "parse-benchmark"; do
                     BENCHMARK_BENCHMARK_OUT="$results_prefix/$benchname$i.json"
                     echo "output is $BENCHMARK_BENCHMARK_OUT"
                     ./$benchname --benchmark_out=$BENCHMARK_BENCHMARK_OUT
