@@ -44,7 +44,7 @@ build_and_bench () {
             for i in $(seq 1 $num_iterations)
             do
                 pushd build
-                for benchname in "concat-benchmark" "find-pow10-benchmark" "locale-benchmark" "vararg-benchmark" "int-benchmark" "parse-benchmark"; do
+                for benchname in "concat-benchmark" "find-pow10-benchmark" "vararg-benchmark" "int-benchmark" "parse-benchmark"; do
                     BENCHMARK_BENCHMARK_OUT="$results_prefix/$benchname$i.json"
                     echo "output is $BENCHMARK_BENCHMARK_OUT"
                     ./$benchname --benchmark_out=$BENCHMARK_BENCHMARK_OUT
