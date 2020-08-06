@@ -59,6 +59,8 @@ void appendWithReserve(benchmark::State& state) {
 }
 BENCHMARK(appendWithReserve);
 
+#ifdef FMT_COMPILE
+
 void format_compile(benchmark::State& state) {
   benchmark::ClobberMemory();
   for (auto _ : state) {
@@ -68,6 +70,8 @@ void format_compile(benchmark::State& state) {
   }
 }
 BENCHMARK(format_compile);
+
+#endif
 
 void format_runtime(benchmark::State& state) {
   benchmark::ClobberMemory();

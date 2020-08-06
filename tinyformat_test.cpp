@@ -113,6 +113,7 @@ void speedTest(const std::string& which)
             fmt::print("{:.10f}:{:04}:{:+}:{}:{}:{}:%\n",
                 1.234, 42, 3.13, "str", (void*)1000, 'X');
     }
+#ifdef FMT_COMPILE
     else if(which == "fmt::compile")
     {
         // fmt version (compiled).
@@ -127,6 +128,7 @@ void speedTest(const std::string& which)
             std::puts(buf);
         }
     }
+#endif
 #endif
     else if(which == "folly")
     {

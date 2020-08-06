@@ -25,6 +25,10 @@
 #include "itostr.cc"
 #include "u2985907.h"
 
+#ifndef FMT_COMPILE
+#define FMT_COMPILE(s) fmt::compile<int>(FMT_STRING(s))
+#endif
+
 // Integer to string converter by Alf P. Steinbach modified to return a pointer
 // past the end of the output to avoid calling strlen.
 namespace cppx {
