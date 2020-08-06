@@ -171,19 +171,23 @@ list_pr_regressions()
     local mergeCommit=$4
     local iterations=$5
 
-    if [ "$bearerToken" == ""]; then
+    if [ "$bearerToken" == "" ]; then
         echo "please set the 'bearerToken' env variable to the calcite bearer token"
         false
     fi
 
     if [ "$backendServer" == "" ]; then
         echo "please set the 'backendServer' variable"
+        false
     fi
 
-    nbRegressedDatapoints=$(curl -s -L -H "Authorization: Bearer $bearerToken" $backendServer/api/projects/$projectToken/baseline/commit-id/$targetCommit/targets/commit-id/$mergeCommit | jq '.abstract.regressedDatapointsCount')
-    if [ "$nbRegressedDatapoints" != "0" ] && [ "$nbRegressedDatapoints" != "null" ]; then
-        echo "PR $1 has $nbRegressedDatapoints regressed datapoints (base=$targetCommit merge=$mergeCommit)"
+    nbRegressedDatapoints=$(curl -s -L -H "Authorization: Bearer $bearerToken" $backendServer/api/projects/$CALCITE_TOKEN/baseline/commit-id/$targetCommit/targets/commit-id/$mergeCommit | jq '.abstract.regressedDatapointsCount')
+    if [ "$nbRegressedDatapoints" == "" ]; then
+        false
     fi
+    #if [ "$nbRegressedDatapoints" != "0" ] && [ "$nbRegressedDatapoints" != "null" ]; then
+        echo "PR $1 has $nbRegressedDatapoints regressed datapoints (base=$targetCommit merge=$mergeCommit)"
+    #fi
 }
 
 for_each_pr()
