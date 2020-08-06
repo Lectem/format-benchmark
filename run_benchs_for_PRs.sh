@@ -22,6 +22,10 @@ cleanup()
     echo "=========== Reseting system to normal settings =================="
     echo "================================================================="
     sudo python3 -m pyperf system reset
+
+    if [ "notifyEmail" != "" ]; then
+        echo "script ended" | mailx -s "pr replay script ended" $notifyEmail
+    fi
 }
 trap cleanup EXIT
 
