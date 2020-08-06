@@ -23,7 +23,7 @@ cleanup()
     echo "================================================================="
     sudo python3 -m pyperf system reset
 
-    if [ "notifyEmail" != "" ]; then
+    if [ "$notifyEmail" != "" ]; then
         echo "script ended" | mailx -s "pr replay script ended" $notifyEmail
     fi
 }
